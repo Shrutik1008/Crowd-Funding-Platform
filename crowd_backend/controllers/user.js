@@ -7,7 +7,8 @@ require("dotenv").config();
  * =================================================
  * DEV ONLY: Create default admin if DB is empty
  * =================================================
- */
+ * */
+
 (async function seedAdmin() {
   try {
     const count = await db.User.countDocuments();
@@ -16,17 +17,18 @@ require("dotenv").config();
       const hash = await bcrypt.hash("abc", salt);
 
       await db.User.create({
-        email: "imt_2018109@iiitm.ac.in",
+        email: "shrutikvankundre1008@gmail.com",
         password: hash,
         isVerified: true,
       });
 
-      console.log("✅ Default admin created");
+      console.log("✅ Default admin created (gmail)");
     }
   } catch (err) {
     console.error("❌ Error creating default admin:", err);
   }
 })();
+
 
 /**
  * =================================================
@@ -34,14 +36,14 @@ require("dotenv").config();
  * =================================================
  */
 function validateEmail(email) {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return (
     re.test(email) &&
-    email.endsWith("@iiitm.ac.in")
+    (email.endsWith("@gmail.com") || email.endsWith("@iiitm.ac.in"))
   );
 }
+
+
 
 /**
  * =================================================
